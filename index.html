@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Welcome to Berozgaar Engineer world</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background: #fdfaf6;
+      color: #2d3436;
+      padding-bottom: 120px;
+    }
+    header {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: #ffffff;
+      text-align: center;
+      padding: 24px 16px 20px;
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 6px 18px rgba(255, 65, 108, 0.25);
+    }
+    header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    header p {
+      font-size: 13px;
+      margin-top: 5px;
+      opacity: 0.95;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .location-box {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: -15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-left: 5px solid #ff416c;
+    }
+    .location-box label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #ff416c;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .location-box select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1.5px solid #e2e8f0;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      outline: none;
+      background: #f8fafc;
+      cursor: pointer;
+    }
+    .section-title {
+      font-size: 17px;
+      font-weight: 800;
+      margin: 22px 0 12px;
+      color: #ff4757;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 2px;
+      background: #ffd3d9;
+    }
+    .item-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      border: 1px solid #f1f2f6;
+    }
+    .img-wrap {
+      width: 78px;
+      height: 78px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #ffeaa7;
+    }
+    .item-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .item-info h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #2f3542;
+      line-height: 1.25;
+    }
+    .item-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: #2ed573;
+      margin-top: 4px;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+    .btn-qty {
+      background: #ff4757;
+      color: #ffffff;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      font-weight: 900;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+    .btn-qty:active {
+      transform: scale(0.92);
+      background: #d63031;
+    }
+    .qty-num {
+      font-weight: 800;
+      font-size: 15px;
+      min-width: 22px;
+      text-align: center;
+      color: #2d3436;
+    }
+    .footer-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      padding: 14px 20px;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 600px;
+      margin: 0 auto;
+      z-index: 99999;
+    }
+    .total-title {
+      font-size: 11px;
+      color: #747d8c;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .grand-total {
+      font-size: 19px;
+      font-weight: 900;
+      color: #2f3542;
+    }
+    .btn-order {
+      background: #25d366;
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .btn-order:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to Berozgar Engineer</h1>
+    <p>☕ Fresh Food • Quick Delivery to Table</p>
+  </header>
+
+  <div class="container">
+    <div class="location-box">
+      <label for="table-spot">📍 Select Table / Dining Spot:</label>
+      <select id="table-spot">
+        <option value="Table 1">Table 1</option>
+        <option value="H1 (Haath 1)">H1</option>
+        <option value="H2 (Haath 2)">H2</option>
+        <option value="H3 (Haath 3)">H3</option>
+        <option value="P1 (Spot P1)">P1</option>
+      </select>
+    </div>
+
+    <!-- BEVERAGES -->
+    <div class="section-title">☕ Beverages</div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=200&q=80" class="item-img" alt="CHAI"></div>
+      <div class="item-info"><h4>CHAI</h4><div class="item-price">₹9</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('CHAI', 9, -1, 'q1')">-</button>
+        <span class="qty-num" id="q1">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('CHAI', 9, 1, 'q1')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=200&q=80" class="item-img" alt="Cofee"></div>
+      <div class="item-info"><h4>Cofee</h4><div class="item-price">₹39</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Cofee', 39, -1, 'q2')">-</button>
+        <span class="qty-num" id="q2">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Cofee', 39, 1, 'q2')">+</button>
+      </div>
+    </div>
+
+    <!-- VEG SPECIALS -->
+    <div class="section-title">🥗 Veg Specials</div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=200&q=80" class="item-img" alt="Veg Chowmein"></div>
+      <div class="item-info"><h4>Veg Chowmein</h4><div class="item-price">₹89</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Veg Chowmein', 89, -1, 'q3')">-</button>
+        <span class="qty-num" id="q3">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Veg Chowmein', 89, 1, 'q3')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=200&q=80" class="item-img" alt="VEG RICE"></div>
+      <div class="item-info"><h4>VEG RICE</h4><div class="item-price">₹89</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('VEG RICE', 89, -1, 'q4')">-</button>
+        <span class="qty-num" id="q4">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('VEG RICE', 89, 1, 'q4')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=200&q=80" class="item-img" alt="Paneer RICE"></div>
+      <div class="item-info"><h4>Paneer RICE</h4><div class="item-price">₹109</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Paneer RICE', 109, -1, 'q5')">-</button>
+        <span class="qty-num" id="q5">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Paneer RICE', 109, 1, 'q5')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=80" class="item-img" alt="PANEER CHOW"></div>
+      <div class="item-info"><h4>PANEER CHOW</h4><div class="item-price">₹109</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('PANEER CHOW', 109, -1, 'q6')">-</button>
+        <span class="qty-num" id="q6">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('PANEER CHOW', 109, 1, 'q6')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=200&q=80" class="item-img" alt="Paneer Pokora"></div>
+      <div class="item-info"><h4>Paneer Pokora (8 pcs)</h4><div class="item-price">₹99</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Paneer Pokora (8 pcs)', 99, -1, 'q7')">-</button>
+        <span class="qty-num" id="q7">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Paneer Pokora (8 pcs)', 99, 1, 'q7')">+</button>
+      </div>
+    </div>
+
+    <!-- NON-VEG STARTERS -->
+    <div class="section-title">🍗 Non-Veg Starters</div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=200&q=80" class="item-img" alt="Fish Finger"></div>
+      <div class="item-info"><h4>Fish Finger 4 pc</h4><div class="item-price">₹179</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Fish Finger 4 pc', 179, -1, 'q8')">-</button>
+        <span class="qty-num" id="q8">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Fish Finger 4 pc', 179, 1, 'q8')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=200&q=80" class="item-img" alt="Chilly Chicken"></div>
+      <div class="item-info"><h4>Chilly Chicken</h4><div class="item-price">₹169</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chilly Chicken', 169, -1, 'q9')">-</button>
+        <span class="qty-num" id="q9">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chilly Chicken', 169, 1, 'q9')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?w=200&q=80" class="item-img" alt="Chicken Manchurian"></div>
+      <div class="item-info"><h4>Chicken Manchurian</h4><div class="item-price">₹179</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken Manchurian', 179, -1, 'q10')">-</button>
+        <span class="qty-num" id="q10">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken Manchurian', 179, 1, 'q10')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=200&q=80" class="item-img" alt="Chicken dry fry"></div>
+      <div class="item-info"><h4>Chicken dry fry</h4><div class="item-price">₹159</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken dry fry', 159, -1, 'q11')">-</button>
+        <span class="qty-num" id="q11">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken dry fry', 159, 1, 'q11')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=200&q=80" class="item-img" alt="Chicken pokora"></div>
+      <div class="item-info"><h4>Chicken pokora</h4><div class="item-price">₹119</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken pokora', 119, -1, 'q12')">-</button>
+        <span class="qty-num" id="q12">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken pokora', 119, 1, 'q12')">+</button>
+      </div>
+    </div>
+
+    <!-- MOMOS -->
+    <div class="section-title">🥟 Momos</div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=200&q=80" class="item-img" alt="Momos steamed"></div>
+      <div class="item-info"><h4>Momos steamed (10 pcs)</h4><div class="item-price">₹129</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Momos steamed (10 pcs)', 129, -1, 'q13')">-</button>
+        <span class="qty-num" id="q13">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Momos steamed (10 pcs)', 129, 1, 'q13')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=200&q=80" class="item-img" alt="Fried momos"></div>
+      <div class="item-info"><h4>Fried momos (10 pcs)</h4><div class="item-price">₹159</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Fried momos (10 pcs)', 159, -1, 'q14')">-</button>
+        <span class="qty-num" id="q14">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Fried momos (10 pcs)', 159, 1, 'q14')">+</button>
+      </div>
+    </div>
+
+    <!-- RICE & NOODLES -->
+    <div class="section-title">🍚 Rice & Noodles</div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=200&q=80" class="item-img" alt="Chicken fried rice half"></div>
+      <div class="item-info"><h4>Chicken fried rice half</h4><div class="item-price">₹80</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken fried rice half', 80, -1, 'q15')">-</button>
+        <span class="qty-num" id="q15">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken fried rice half', 80, 1, 'q15')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=200&q=80" class="item-img" alt="Chiken fried Rice Full"></div>
+      <div class="item-info"><h4>Chiken fried Rice Full</h4><div class="item-price">₹149</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chiken fried Rice Full', 149, -1, 'q16')">-</button>
+        <span class="qty-num" id="q16">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chiken fried Rice Full', 149, 1, 'q16')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=200&q=80" class="item-img" alt="Chilly Garlic rice half"></div>
+      <div class="item-info"><h4>Chilly Garlic rice half</h4><div class="item-price">₹79</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chilly Garlic rice half', 79, -1, 'q17')">-</button>
+        <span class="qty-num" id="q17">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chilly Garlic rice half', 79, 1, 'q17')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=200&q=80" class="item-img" alt="Chilly garlic rice Full"></div>
+      <div class="item-info"><h4>Chilly garlic rice Full</h4><div class="item-price">₹159</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chilly garlic rice Full', 159, -1, 'q18')">-</button>
+        <span class="qty-num" id="q18">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chilly garlic rice Full', 159, 1, 'q18')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=200&q=80" class="item-img" alt="Szechhan Chicken Rice half"></div>
+      <div class="item-info"><h4>Szechhan Chicken Rice half</h4><div class="item-price">₹99</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Szechhan Chicken Rice half', 99, -1, 'q19')">-</button>
+        <span class="qty-num" id="q19">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Szechhan Chicken Rice half', 99, 1, 'q19')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=200&q=80" class="item-img" alt="Szechhan Chicken Rice full"></div>
+      <div class="item-info"><h4>Szechhan Chicken Rice full</h4><div class="item-price">₹169</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Szechhan Chicken Rice full', 169, -1, 'q20')">-</button>
+        <span class="qty-num" id="q20">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Szechhan Chicken Rice full', 169, 1, 'q20')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=200&q=80" class="item-img" alt="Chicken hakka noodle"></div>
+      <div class="item-info"><h4>Chicken hakka noodle</h4><div class="item-price">₹159</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken hakka noodle', 159, -1, 'q21')">-</button>
+        <span class="qty-num" id="q21">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken hakka noodle', 159, 1, 'q21')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1612927601601-6638404737ce?w=200&q=80" class="item-img" alt="Chilly Garlic noodle"></div>
+      <div class="item-info"><h4>Chilly Garlic noodle</h4><div class="item-price">₹159</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chilly Garlic noodle', 159, -1, 'q22')">-</button>
+        <span class="qty-num" id="q22">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chilly Garlic noodle', 159, 1, 'q22')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=80" class="item-img" alt="Szechuan noodle"></div>
+      <div class="item-info"><h4>Szechuan noodle</h4><div class="item-price">₹169</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Szechuan noodle', 169, -1, 'q23')">-</button>
+        <span class="qty-num" id="q23">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Szechuan noodle', 169, 1, 'q23')">+</button>
+      </div>
+    </div>
+
+    <!-- ROLLS -->
+    <div class="section-title">🌯 Rolls</div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=200&q=80" class="item-img" alt="Egg Roll"></div>
+      <div class="item-info"><h4>Egg Roll</h4><div class="item-price">₹79</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Egg Roll', 79, -1, 'q24')">-</button>
+        <span class="qty-num" id="q24">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Egg Roll', 79, 1, 'q24')">+</button>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="img-wrap"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=80" class="item-img" alt="Chicken Roll"></div>
+      <div class="item-info"><h4>Chicken Roll</h4><div class="item-price">₹119</div></div>
+      <div class="qty-controls">
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken Roll', 119, -1, 'q25')">-</button>
+        <span class="qty-num" id="q25">0</span>
+        <button type="button" class="btn-qty" onclick="updateItem('Chicken Roll', 119, 1, 'q25')">+</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Floating Bar -->
+  <div class="footer-bar">
+    <div>
+      <div class="total-title">Total Bill</div>
+      <div class="grand-total" id="grand-total">₹0</div>
+    </div>
+    <button type="button" class="btn-order" onclick="sendOrderWhatsApp()">Order on WhatsApp 📲</button>
+  </div>
+
+  <script>
+    // WhatsApp number with India country code (91)
+    var RESTAURANT_NUMBER = "919864917668";
+
+    var cart = {};
+
+    function updateItem(name, price, change, id) {
+      if (!cart[name]) {
+        cart[name] = { price: price, qty: 0 };
+      }
+
+      cart[name].qty += change;
+
+      if (cart[name].qty <= 0) {
+        delete cart[name];
+        document.getElementById(id).innerText = "0";
+      } else {
+        document.getElementById(id).innerText = cart[name].qty;
+      }
+
+      var total = 0;
+      for (var key in cart) {
+        if (cart.hasOwnProperty(key)) {
+          total += cart[key].price * cart[key].qty;
+        }
+      }
+      document.getElementById("grand-total").innerText = "₹" + total;
+    }
+
+    function sendOrderWhatsApp() {
+      var keys = Object.keys(cart);
+      if (keys.length === 0) {
+        alert("Kripya order karne ke liye kam se kam ek item par '+' dabayein!");
+        return;
+      }
+
+      var spot = document.getElementById("table-spot").value;
+      var total = 0;
+
+      var msg = "🛎️ *ORDER: WELCOME TO BEROZGAR ENGINEER*\n";
+      msg += "📍 *Table / Spot:* " + spot + "\n";
+      msg += "------------------------------------\n";
+
+      for (var i = 0; i < keys.length; i++) {
+        var it = keys[i];
+        var itemTotal = cart[it].price * cart[it].qty;
+        total += itemTotal;
+        msg += "▪ " + it + " x " + cart[it].qty + " = ₹" + itemTotal + "\n";
+      }
+
+      msg += "------------------------------------\n";
+      msg += "💰 *Grand Total: ₹" + total + "*\n";
+      msg += "Please confirm my order!";
+
+      var url = "https://api.whatsapp.com/send?phone=" + RESTAURANT_NUMBER + "&text=" + encodeURIComponent(msg);
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
+
